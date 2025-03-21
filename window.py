@@ -8,20 +8,20 @@ from line import Line
 class Window:
     """Window class"""
 
-    def __init__(self, height, width):
+    def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.__root = Tk()
-        self.__root.title = "Maze"
-        self.canvas = Canvas(self.__root, width=width, height=height)
+        self.root = Tk()
+        self.root.title = "Maze"
+        self.canvas = Canvas(self.root, width=width, height=height)
         self.canvas.pack()
         self.running = False
-        self.__root.protocol("WM_DELETE_WINDOW", self.close)
+        self.root.protocol("WM_DELETE_WINDOW", self.close)
 
     def redraw(self):
         """This function redraws the window"""
-        self.__root.update_idletasks()
-        self.__root.update()
+        self.root.update_idletasks()
+        self.root.update()
 
     def wait_for_close(self):
         """This function keeps the window redrawn till close"""

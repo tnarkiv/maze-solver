@@ -32,18 +32,27 @@ class Cell:
 
     def draw(self):
         """This function draws a cell"""
+        line_l = Line(Point(self.x1, self.y1), Point(self.x1, self.y2))
+        bg_color = self.win.root.cget("bg")
         if self.has_left_wall:
-            line = Line(Point(self.x1, self.y1), Point(self.x1, self.y2))
-            self.win.draw_line(line, "black")
+            self.win.draw_line(line_l, "black")
+        else:
+            self.win.draw_line(line_l, bg_color)
+        line_b = Line(Point(self.x1, self.y2), Point(self.x2, self.y2))
         if self.has_bottom_wall:
-            line = Line(Point(self.x1, self.y2), Point(self.x2, self.y2))
-            self.win.draw_line(line, "black")
+            self.win.draw_line(line_b, "black")
+        else:
+            self.win.draw_line(line_b, bg_color)
+        line_r = Line(Point(self.x2, self.y2), Point(self.x2, self.y1))
         if self.has_right_wall:
-            line = Line(Point(self.x2, self.y2), Point(self.x2, self.y1))
-            self.win.draw_line(line, "black")
+            self.win.draw_line(line_r, "black")
+        else:
+            self.win.draw_line(line_r, bg_color)
+        line_t = Line(Point(self.x2, self.y1), Point(self.x1, self.y1))
         if self.has_top_wall:
-            line = Line(Point(self.x2, self.y1), Point(self.x1, self.y1))
-            self.win.draw_line(line, "black")
+            self.win.draw_line(line_t, "black")
+        else:
+            self.win.draw_line(line_t, bg_color)
 
     def draw_move(self, to_cell, undo=False):
         """This function draws a path between the centers of two cells

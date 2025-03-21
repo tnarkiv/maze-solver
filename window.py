@@ -1,9 +1,13 @@
 """Window module of the maze"""
+
 from tkinter import Tk, Canvas
+
+from line import Line
 
 
 class Window:
     """Window class"""
+
     def __init__(self, height, width):
         self.width = width
         self.height = height
@@ -28,3 +32,12 @@ class Window:
     def close(self):
         """This function closes the window"""
         self.running = False
+
+    def draw_line(self, line: Line, fill_color: str):
+        """This function draws a line in the window
+
+        Args:
+            line (Line): Line
+            fill_color (str): Color of line
+        """
+        line.draw(self.canvas, fill_color)

@@ -1,7 +1,6 @@
 """Main module of the program"""
 
 import random
-import time
 from cell import Cell
 from point import Point
 from window import Window
@@ -14,6 +13,7 @@ def main():
     for i in range(50):
         a_s.append(Point(random.randint(0, 400), random.randint(0, 300)))
         b_s.append(Point(a_s[i].x + 150, a_s[i].y + 150))
+    cells = []
     for i in range(50):
         cell = Cell(
             a_s[i].x,
@@ -28,7 +28,10 @@ def main():
         )
         cell.draw()
         win.redraw()
-        time.sleep(0.1)
+        cells.append(cell)
+        if i > 0:
+            cells[i].draw_move(cells[i - 1], random.choice([True, False]))
+            win.redraw()
     win.wait_for_close()
 
 

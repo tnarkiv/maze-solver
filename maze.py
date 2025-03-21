@@ -16,7 +16,7 @@ class Maze:
         num_cols,
         cell_size_x,
         cell_size_y,
-        win,
+        win=None,
     ):
         self.x1 = x1
         self.y1 = y1
@@ -58,6 +58,10 @@ class Maze:
             has_top_wall,
             has_bottom_wall,
         )
+
+        if not self.win:
+            return
+
         self.cells[i][j].draw()
         self._animate()
 

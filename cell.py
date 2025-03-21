@@ -14,7 +14,7 @@ class Cell:
         x2,
         y1,
         y2,
-        win: Window,
+        win: Window = None,
         has_left_wall=True,
         has_right_wall=True,
         has_top_wall=True,

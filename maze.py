@@ -29,7 +29,7 @@ class Maze:
         self._create_cells()
 
     def _create_cells(self):
-        self._cells = [
+        self.cells = [
             [None for _ in range(self.num_cols)] for _ in range(self.num_rows)
         ]
         for i in range(self.num_rows):
@@ -47,7 +47,7 @@ class Maze:
         has_top_wall = random.choice([True, False])
         has_bottom_wall = random.choice([True, False])
 
-        self._cells[i][j] = Cell(
+        self.cells[i][j] = Cell(
             x1,
             x2,
             y1,
@@ -58,7 +58,7 @@ class Maze:
             has_top_wall,
             has_bottom_wall,
         )
-        self._cells[i][j].draw()
+        self.cells[i][j].draw()
         self._animate()
 
     def _animate(self):

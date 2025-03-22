@@ -29,6 +29,7 @@ class Cell:
         self.y1 = y1
         self.y2 = y2
         self.win = win
+        self.visited = False
 
     def draw(self):
         """This function draws a cell"""

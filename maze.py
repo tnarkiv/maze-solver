@@ -9,14 +9,7 @@ class Maze:
     """Maze class"""
 
     def __init__(
-        self,
-        x1,
-        y1,
-        num_rows,
-        num_cols,
-        cell_size_x,
-        cell_size_y,
-        win=None,
+        self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, win=None, seed=None
     ):
         self.x1 = x1
         self.y1 = y1
@@ -27,6 +20,8 @@ class Maze:
         self.win = win
         self.cells = []
         self._create_cells()
+        if not seed:
+            random.seed(seed)
 
     def _create_cells(self):
         self.cells = [
@@ -36,6 +31,7 @@ class Maze:
             for j in range(self.num_cols):
                 self._draw_cell(i, j)
         if self.win:
+            self._break_walls_r(0, 0)
             self._break_entrance_and_exit()
 
     def _draw_cell(self, i, j):
@@ -75,7 +71,38 @@ class Maze:
         self.cells[0][0].has_top_wall = False
         self.cells[0][0].draw()
 
-        self.cells[self.num_rows-1][self.num_cols-1].has_bottom_wall = False
-        self.cells[self.num_rows-1][self.num_cols-1].draw()
+        self.cells[self.num_rows - 1][self.num_cols - 1].has_bottom_wall = False
+        self.cells[self.num_rows - 1][self.num_cols - 1].draw()
 
         self._animate()
+
+    def _break_walls_r(self, i, j):
+        self.cells[i][j].visited = True
+
+        directions = [(0, -1), (0, 1), (-1, 0), (1, 0)]
+        random.shuffle(directions)
+
+        for di, dj in directions:
+            ni, nj = i + di, j + dj
+            if (
+                0 <= ni < self.num_rows
+                and 0 <= nj < self.num_cols
+                and not self.cells[ni][nj].visited
+            ):
+                if di == -1:
+                    self.cells[i][j].has_top_wall = False
+                    self.cells[ni][nj].has_bottom_wall = False
+                elif di == 1:
+                    self.cells[i][j].has_bottom_wall = False
+                    self.cells[ni][nj].has_top_wall = False
+                elif dj == -1:
+                    self.cells[i][j].has_left_wall = False
+                    self.cells[ni][nj].has_right_wall = False
+                elif dj == 1:
+                    self.cells[i][j].has_right_wall = False
+                    self.cells[ni][nj].has_left_wall = False
+
+                self.cells[i][j].draw()
+                self.cells[ni][nj].draw()
+                self._animate()
+                self._break_walls_r(ni, nj)

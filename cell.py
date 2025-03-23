@@ -66,6 +66,6 @@ class Cell:
             (to_cell.x1 + to_cell.x2) / 2, (to_cell.y1 + to_cell.y2) / 2
         )
         if undo:
-            self.win.draw_line(Line(c1, c2), "gray")
-        else:
             self.win.draw_line(Line(c1, c2), "red")
+        else:
+            self.win.draw_line(Line(c1, c2), "green")
